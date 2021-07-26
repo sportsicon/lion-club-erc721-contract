@@ -60,5 +60,23 @@ describe("SportsIconLion", function () {
 
       expect(await token.tokenURI(1)).to.be.eq(`${baseURI}1`)
     });
+
   });
+
+    describe("Reserve", function () {
+
+        it("Should fail if trying to reserve too many tokens", async function () {
+            await expect(
+                token.reserveLions(addr1.address, 21)
+            ).to.be.revertedWith("Not enough reserve left for team");
+        });
+
+        it("Should reserve correct amount", async function () {
+            await token.reserveLions(addr1.address, 5);
+
+            expect(await token.reserve()).to.equal(15);
+            expect(await token.totalSupply()).to.equal(5);
+        });
+
+    });
 });

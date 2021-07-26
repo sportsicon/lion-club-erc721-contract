@@ -10,11 +10,15 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 contract SportsIconLion is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     using SafeMath for uint256;
 
-    uint256 public constant lionPrice = 25000000000000000; // 0.025 ETH
+    // Price 0.025 ETH
+    uint256 public constant lionPrice = 25000000000000000;
 
     uint256 public constant maxPurchase = 5;
 
     uint256 public constant maxLions = 8000;
+
+    // Reserve max 20 tokens for team
+    uint256 public reserve = 20;
 
     bool public saleIsActive = false;
 
@@ -52,6 +56,21 @@ contract SportsIconLion is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
                 _safeMint(msg.sender, mintIndex);
             }
         }
+    }
+
+    function reserveLions(address to, uint256 numberOfTokens) public onlyOwner {
+        uint256 supply = totalSupply();
+
+        require(
+            numberOfTokens > 0 && numberOfTokens <= reserve,
+            "Not enough reserve left for team"
+        );
+
+        for (uint256 i = 0; i < numberOfTokens; i++) {
+            _safeMint(to, supply + i);
+        }
+
+        reserve = reserve.sub(numberOfTokens);
     }
 
     function _baseURI() internal view override returns (string memory) {
