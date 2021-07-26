@@ -20,7 +20,7 @@ contract SportsIconLion is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     string private baseURI;
 
-    constructor() ERC721("SportsIconLion", "SIL") {}
+    constructor() ERC721("SportsIcon", "SIL") {}
 
     function flipSaleState() public onlyOwner {
         saleIsActive = !saleIsActive;
