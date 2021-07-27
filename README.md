@@ -2,12 +2,24 @@
 
 ### Install dependencies
 
-```bash
+```
 npm install
+```
+
+### Deploy contract
+
+```
+npx hardhat run scripts/deploy.js --network rinkeby
+```
+
+### Verify contract
+
+```
+npx hardhat verify --network rinkeby <contract address>
 ```
 
 ### Run tests
 
-```bash
+```
 npx hardhat test
 ```
