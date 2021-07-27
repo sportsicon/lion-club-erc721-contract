@@ -10,21 +10,21 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 contract SportsIconLion is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     using SafeMath for uint256;
 
-    // Price 0.025 ETH
-    uint256 public constant lionPrice = 25000000000000000;
+    // Lion price 0.08 ETH
+    uint256 public constant lionPrice = 80000000000000000;
 
-    uint256 public constant maxPurchase = 5;
+    uint256 public constant maxPurchase = 10;
 
     uint256 public constant maxLions = 8000;
 
-    // Reserve max 20 tokens for team
-    uint256 public reserve = 20;
+    // Reserve max 185 tokens for founding NFT owners and team
+    uint256 public reserve = 185;
 
     bool public saleIsActive = false;
 
     string private baseURI;
 
-    constructor() ERC721("SportsIcon", "SIL") {}
+    constructor() ERC721("SportsIcon Lion Club", "SLC") {}
 
     function flipSaleState() public onlyOwner {
         saleIsActive = !saleIsActive;
