@@ -1,17 +1,17 @@
 const { expect } = require("chai");
 
-describe("SportsIconLion", function () {
-  let SportsIconLion;
+describe("SportsIcon Lion Club", function () {
+  let SportsIconLionClub;
   let token;
   let owner;
   let addr1;
   let addrs;
 
   beforeEach(async function () {
-    SportsIconLion = await ethers.getContractFactory("SportsIconLion");
+    SportsIconLionClub = await ethers.getContractFactory("SportsIconLionClub");
     [owner, addr1, ...addrs] = await ethers.getSigners();
 
-    token = await SportsIconLion.deploy();
+    token = await SportsIconLionClub.deploy();
   });
 
   describe("Deployment", function () {
@@ -28,7 +28,7 @@ describe("SportsIconLion", function () {
 
     it("Should fail if trying to mint more than max amount", async function () {
       await token.flipSaleState();
-      await expect(token.mintLion(11)).to.be.revertedWith("Can only mint 5 Lions at a time");
+      await expect(token.mintLion(11)).to.be.revertedWith("Can only mint 10 Lions at a time");
     });
 
     it("Should fail if trying to mint with less Ether than required", async function () {
@@ -68,7 +68,7 @@ describe("SportsIconLion", function () {
         it("Should fail if trying to reserve too many tokens", async function () {
             await expect(
                 token.reserveLions(addr1.address, 186)
-            ).to.be.revertedWith("Not enough reserve left for team");
+            ).to.be.revertedWith("Not enough reserve left");
         });
 
         it("Should reserve correct amount", async function () {

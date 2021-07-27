@@ -7,7 +7,12 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
-contract SportsIconLion is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract SportsIconLionClub is
+    ERC721,
+    ERC721Enumerable,
+    ERC721URIStorage,
+    Ownable
+{
     using SafeMath for uint256;
 
     // Lion price 0.08 ETH
@@ -35,10 +40,10 @@ contract SportsIconLion is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     }
 
     function mintLion(uint256 numberOfTokens) public payable {
-        require(saleIsActive, "Sale must be active to mint Lion");
+        require(saleIsActive, "Sale must be active to mint Lions");
         require(
             numberOfTokens > 0 && numberOfTokens <= maxPurchase,
-            "Can only mint 5 Lions at a time"
+            "Can only mint 10 Lions at a time"
         );
         require(
             totalSupply().add(numberOfTokens) <= maxLions,
@@ -63,7 +68,7 @@ contract SportsIconLion is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
         require(
             numberOfTokens > 0 && numberOfTokens <= reserve,
-            "Not enough reserve left for team"
+            "Not enough reserve left"
         );
 
         for (uint256 i = 0; i < numberOfTokens; i++) {

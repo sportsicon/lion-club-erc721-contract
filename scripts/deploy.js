@@ -1,8 +1,8 @@
 const hre = require("hardhat");
 
 async function main() {
-  const SportsIconLion = await hre.ethers.getContractFactory("SportsIconLion");
-  const contract = await SportsIconLion.deploy();
+  const SportsIconLionClub = await hre.ethers.getContractFactory("SportsIconLionClub");
+  const contract = await SportsIconLionClub.deploy();
 
   console.log("Contract deployed to address:", contract.address);
 }
