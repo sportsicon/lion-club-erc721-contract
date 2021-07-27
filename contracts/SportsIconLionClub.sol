@@ -78,6 +78,13 @@ contract SportsIconLionClub is
         reserve = reserve.sub(numberOfTokens);
     }
 
+    function withdraw() public onlyOwner {
+        address payable to = payable(msg.sender);
+        uint256 balance = address(this).balance;
+
+        to.transfer(balance);
+    }
+
     function _baseURI() internal view override returns (string memory) {
         return baseURI;
     }

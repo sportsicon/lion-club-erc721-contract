@@ -1,7 +1,7 @@
 {
-  "name": "sportslions",
+  "name": "sportsiconlionclub",
   "version": "1.0.0",
-  "description": "SportsLions Smart Contract",
+  "description": "SportsIcon Lion Club ERC721 Contract",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
