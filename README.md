@@ -1,4 +1,4 @@
-# SportsIcon Lions ERC721 Contract
+# SportsIcon Lion Club ERC721 Contract
 
 ### Install dependencies
 
