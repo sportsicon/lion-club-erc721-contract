@@ -18,15 +18,22 @@ contract SportsIconLionClub is
     // Lion price 0.08 ETH
     uint256 public constant lionPrice = 80000000000000000;
 
+    // Maximum purchase at once
     uint256 public constant maxPurchase = 10;
 
+    // Maximum supply
     uint256 public constant maxLions = 8000;
 
     // Reserve max 185 tokens for founding NFT owners and team
     uint256 public reserve = 185;
 
+    // Sale state
     bool public saleIsActive = false;
 
+    // Provenance hash
+    string public provenanceHash = "";
+
+    // Base URI
     string private baseURI;
 
     constructor() ERC721("SportsIcon Lion Club", "SLC") {}
@@ -83,6 +90,10 @@ contract SportsIconLionClub is
         uint256 balance = address(this).balance;
 
         to.transfer(balance);
+    }
+
+    function setProvenanceHash(string memory provenance) public onlyOwner {
+        provenanceHash = provenance;
     }
 
     function _baseURI() internal view override returns (string memory) {

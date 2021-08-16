@@ -104,4 +104,14 @@ describe("SportsIcon Lion Club", function () {
       expect(newOwnerBalance.gt(oldOwnerBalance)).to.equal(true);
     });
   });
+
+  describe("Provenance", function () {
+    it("Should update provenance hash", async function () {
+      const hash = "0dd395f7b65cb35643b442e7318f1ae8ff63c72f194956e9655f40e27f1c89f4";
+
+      await token.setProvenanceHash(hash);
+
+      expect(await token.provenanceHash()).to.equal(hash);
+    });
+  });
 });
