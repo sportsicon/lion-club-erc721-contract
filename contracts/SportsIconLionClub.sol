@@ -27,6 +27,9 @@ contract SportsIconLionClub is
     // Reserve max 850 tokens for founding NFT owners, giveaways, partners, marketing and team
     uint256 public reserve = 850;
 
+    // Limit single reserve call
+    uint256 public reserveLimit = 30;
+
     // Sale state
     bool public saleIsActive = false;
 
@@ -76,6 +79,11 @@ contract SportsIconLionClub is
         require(
             numberOfTokens > 0 && numberOfTokens <= reserve,
             "Not enough reserve left"
+        );
+
+        require(
+            numberOfTokens <= reserveLimit,
+            "You can reserve max 30 lions at once"
         );
 
         for (uint256 i = 0; i < numberOfTokens; i++) {

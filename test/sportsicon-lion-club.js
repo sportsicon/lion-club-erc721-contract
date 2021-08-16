@@ -75,10 +75,16 @@ describe("SportsIcon Lion Club", function () {
 
   describe("Reserve", function () {
 
-    it("Should fail if trying to reserve too many tokens", async function () {
+    it("Should fail if trying to reserve more lions than left in reserve", async function () {
         await expect(
             token.reserveLions(addr1.address, 851)
         ).to.be.revertedWith("Not enough reserve left");
+    });
+
+    it("Should fail if trying to reserve more lions at once than the limit", async function () {
+        await expect(
+            token.reserveLions(addr1.address, 31)
+        ).to.be.revertedWith("You can reserve max 30 lions at once");
     });
 
     it("Should reserve correct amount", async function () {
