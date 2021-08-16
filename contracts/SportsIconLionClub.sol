@@ -96,6 +96,27 @@ contract SportsIconLionClub is
         provenanceHash = provenance;
     }
 
+    function tokensOfOwner(address _owner)
+        external
+        view
+        returns (uint256[] memory)
+    {
+        uint256 tokenCount = balanceOf(_owner);
+
+        if (tokenCount > 0) {
+            uint256[] memory result = new uint256[](tokenCount);
+            uint256 index;
+
+            for (index = 0; index < tokenCount; index++) {
+                result[index] = tokenOfOwnerByIndex(_owner, index);
+            }
+
+            return result;
+        }
+
+        return new uint256[](0);
+    }
+
     function _baseURI() internal view override returns (string memory) {
         return baseURI;
     }

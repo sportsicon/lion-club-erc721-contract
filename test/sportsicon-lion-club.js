@@ -114,4 +114,17 @@ describe("SportsIcon Lion Club", function () {
       expect(await token.provenanceHash()).to.equal(hash);
     });
   });
+
+  describe("Helpers", function () {
+    it("Should return tokens of given owner", async function () {
+      await token.flipSaleState();
+      await token.connect(addr1).mintLion(2, { value: parseEther("0.16") });
+
+      const addr1tokens = await token.tokensOfOwner(addr1.address);
+
+      expect(addr1tokens.length).to.equal(2);
+      expect(addr1tokens[0]).to.equal(0);
+      expect(addr1tokens[1]).to.equal(1);
+    });
+  });
 });
