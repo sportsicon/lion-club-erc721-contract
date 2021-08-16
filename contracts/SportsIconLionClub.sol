@@ -24,8 +24,8 @@ contract SportsIconLionClub is
     // Maximum supply
     uint256 public constant maxLions = 9000;
 
-    // Reserve max 185 tokens for founding NFT owners and team
-    uint256 public reserve = 185;
+    // Reserve max 850 tokens for founding NFT owners, giveaways, partners, marketing and team
+    uint256 public reserve = 850;
 
     // Sale state
     bool public saleIsActive = false;
