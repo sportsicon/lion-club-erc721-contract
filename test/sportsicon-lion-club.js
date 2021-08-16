@@ -43,14 +43,14 @@ describe("SportsIcon Lion Club", function () {
 
     it("Should update total supply", async function () {
       await token.flipSaleState();
-      await token.connect(addr1).mintLion(2, { value: parseEther("0.16") });
+      await token.connect(addr1).mintLion(2, { value: parseEther("0.08") });
 
       expect(await token.totalSupply()).to.equal(2);
     });
 
     it("Should set correct token owner", async function () {
       await token.flipSaleState();
-      await token.connect(addr1).mintLion(1, { value: parseEther("0.08") });
+      await token.connect(addr1).mintLion(1, { value: parseEther("0.04") });
 
       expect(await token.tokenOfOwnerByIndex(addr1.address, 0)).to.equal(0);
     });
@@ -59,16 +59,16 @@ describe("SportsIcon Lion Club", function () {
       const baseURI = "https://gateway.pinata.cloud/ipfs/1234567890/";
       await token.flipSaleState();
       await token.setBaseURI(baseURI);
-      await token.connect(addr1).mintLion(2, { value: parseEther("0.16") });
+      await token.connect(addr1).mintLion(2, { value: parseEther("0.08") });
 
       expect(await token.tokenURI(1)).to.be.eq(`${baseURI}1`)
     });
 
     it("Should increase contract balance", async function () {
       await token.flipSaleState();
-      await token.connect(addr1).mintLion(1, { value: parseEther("0.08") });
+      await token.connect(addr1).mintLion(1, { value: parseEther("0.04") });
 
-      expect(await provider.getBalance(token.address)).to.equal(parseEther("0.08"));
+      expect(await provider.getBalance(token.address)).to.equal(parseEther("0.04"));
     });
 
   });
@@ -95,7 +95,7 @@ describe("SportsIcon Lion Club", function () {
       const oldOwnerBalance = await provider.getBalance(owner.address);
 
       await token.flipSaleState();
-      await token.connect(addr1).mintLion(1, { value: parseEther("0.08") });
+      await token.connect(addr1).mintLion(1, { value: parseEther("0.04") });
       await token.withdraw();
 
       const newOwnerBalance = await provider.getBalance(owner.address);
@@ -118,7 +118,7 @@ describe("SportsIcon Lion Club", function () {
   describe("Helpers", function () {
     it("Should return tokens of given owner", async function () {
       await token.flipSaleState();
-      await token.connect(addr1).mintLion(2, { value: parseEther("0.16") });
+      await token.connect(addr1).mintLion(2, { value: parseEther("0.08") });
 
       const addr1tokens = await token.tokensOfOwner(addr1.address);
 

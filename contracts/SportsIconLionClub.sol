@@ -15,8 +15,8 @@ contract SportsIconLionClub is
 {
     using SafeMath for uint256;
 
-    // Lion price 0.08 ETH
-    uint256 public constant lionPrice = 80000000000000000;
+    // Lion price 0.04 ETH
+    uint256 public constant lionPrice = 40000000000000000;
 
     // Maximum purchase at once
     uint256 public constant maxPurchase = 10;
