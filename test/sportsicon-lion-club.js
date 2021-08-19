@@ -26,19 +26,24 @@ describe("SportsIcon Lion Club", function () {
   describe("Minting", function () {
 
     it("Should fail if sale is not active", async function () {
-      await expect(token.mintLion(1)).to.be.revertedWith("Sale must be active to mint Lion");
+      await expect(token.mintLion(1)).to.be.revertedWith("Sale must be active to mint lions");
+    });
+
+    it("Should fail if trying to mint less than 1 lion", async function () {
+      await token.flipSaleState();
+      await expect(token.mintLion(0)).to.be.revertedWith("At least one lion must be minted");
     });
 
     it("Should fail if trying to mint more than max amount", async function () {
       await token.flipSaleState();
-      await expect(token.mintLion(11)).to.be.revertedWith("Can only mint 10 Lions at a time");
+      await expect(token.mintLion(21)).to.be.revertedWith("Maximum 20 lions can be minted at once");
     });
 
     it("Should fail if trying to mint with less Ether than required", async function () {
       await token.flipSaleState();
       await expect(
         token.connect(addr1).mintLion(2, { value: parseEther("0.07") })
-      ).to.be.revertedWith("Ether value sent is not correct");
+      ).to.be.revertedWith("ETH value sent is not correct");
     });
 
     it("Should update total supply", async function () {
@@ -75,22 +80,28 @@ describe("SportsIcon Lion Club", function () {
 
   describe("Reserve", function () {
 
+    it("Should fail if trying to reserve less than 1 lion", async function () {
+        await expect(
+            token.reserveLions(addr1.address, 0)
+        ).to.be.revertedWith("At least one lion must be reserved");
+    });
+
     it("Should fail if trying to reserve more lions than left in reserve", async function () {
         await expect(
-            token.reserveLions(addr1.address, 851)
-        ).to.be.revertedWith("Not enough reserve left");
+            token.reserveLions(addr1.address, 301)
+        ).to.be.revertedWith("There's not enough lions left in reserve");
     });
 
     it("Should fail if trying to reserve more lions at once than the limit", async function () {
         await expect(
             token.reserveLions(addr1.address, 31)
-        ).to.be.revertedWith("You can reserve max 30 lions at once");
+        ).to.be.revertedWith("Only maximum 30 lions can be reserved at once");
     });
 
     it("Should reserve correct amount", async function () {
         await token.reserveLions(addr1.address, 5);
 
-        expect(await token.reserve()).to.equal(845);
+        expect(await token.reserve()).to.equal(295);
         expect(await token.totalSupply()).to.equal(5);
     });
 

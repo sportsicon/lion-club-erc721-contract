@@ -17,18 +17,16 @@ contract SportsIconLionClub is
 
     // Lion price 0.04 ETH
     uint256 public constant lionPrice = 40000000000000000;
+    // uint256 public constant lionPrice = 400000000000000;
 
     // Maximum purchase at once
-    uint256 public constant maxPurchase = 10;
+    uint256 public constant maxPurchase = 20;
 
     // Maximum supply
     uint256 public constant maxLions = 9000;
 
-    // Reserve max 850 tokens for founding NFT owners, giveaways, partners, marketing and team
-    uint256 public reserve = 850;
-
-    // Limit single reserve call
-    uint256 public reserveLimit = 30;
+    // Reserve max 300 tokens for founding NFT owners, giveaways, partners, marketing and team
+    uint256 public reserve = 300;
 
     // Sale state
     bool public saleIsActive = false;
@@ -36,8 +34,14 @@ contract SportsIconLionClub is
     // Provenance hash
     string public provenanceHash = "";
 
+    // Limit single reserve amount
+    uint256 private reserveLimit = 30;
+
     // Base URI
     string private baseURI;
+
+    // Events
+    event assetMinted(address _by, uint256 _tokenId, string _name);
 
     constructor() ERC721("SportsIcon Lion Club", "SLC") {}
 
@@ -50,18 +54,19 @@ contract SportsIconLionClub is
     }
 
     function mintLion(uint256 numberOfTokens) public payable {
-        require(saleIsActive, "Sale must be active to mint Lions");
+        require(saleIsActive, "Sale must be active to mint lions");
+        require(numberOfTokens > 0, "At least one lion must be minted");
         require(
-            numberOfTokens > 0 && numberOfTokens <= maxPurchase,
-            "Can only mint 10 Lions at a time"
+            numberOfTokens <= maxPurchase,
+            "Maximum 20 lions can be minted at once"
         );
         require(
             totalSupply().add(numberOfTokens) <= maxLions,
-            "Purchase would exceed max supply of Lions"
+            "Purchase would exceed the max supply of lions"
         );
         require(
             msg.value >= lionPrice.mul(numberOfTokens),
-            "Ether value sent is not correct"
+            "ETH value sent is not correct"
         );
 
         for (uint256 i = 0; i < numberOfTokens; i++) {
@@ -76,14 +81,14 @@ contract SportsIconLionClub is
     function reserveLions(address to, uint256 numberOfTokens) public onlyOwner {
         uint256 supply = totalSupply();
 
+        require(numberOfTokens > 0, "At least one lion must be reserved");
         require(
-            numberOfTokens > 0 && numberOfTokens <= reserve,
-            "Not enough reserve left"
+            numberOfTokens <= reserve,
+            "There's not enough lions left in reserve"
         );
-
         require(
             numberOfTokens <= reserveLimit,
-            "You can reserve max 30 lions at once"
+            "Only maximum 30 lions can be reserved at once"
         );
 
         for (uint256 i = 0; i < numberOfTokens; i++) {
