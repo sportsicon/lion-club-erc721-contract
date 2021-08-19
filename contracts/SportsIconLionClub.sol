@@ -17,7 +17,6 @@ contract SportsIconLionClub is
 
     // Lion price 0.04 ETH
     uint256 public constant lionPrice = 40000000000000000;
-    // uint256 public constant lionPrice = 400000000000000;
 
     // Maximum purchase at once
     uint256 public constant maxPurchase = 20;
@@ -41,7 +40,7 @@ contract SportsIconLionClub is
     string private baseURI;
 
     // Events
-    event assetMinted(address _by, uint256 _tokenId, string _name);
+    event AssetMinted(address indexed to, uint256 indexed tokenId);
 
     constructor() ERC721("SportsIcon Lion Club", "SLC") {}
 
@@ -74,6 +73,7 @@ contract SportsIconLionClub is
 
             if (mintIndex < maxLions) {
                 _safeMint(msg.sender, mintIndex);
+                emit AssetMinted(msg.sender, mintIndex);
             }
         }
     }

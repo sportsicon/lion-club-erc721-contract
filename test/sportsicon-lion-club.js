@@ -39,7 +39,7 @@ describe("SportsIcon Lion Club", function () {
       await expect(token.mintLion(21)).to.be.revertedWith("Maximum 20 lions can be minted at once");
     });
 
-    it("Should fail if trying to mint with less Ether than required", async function () {
+    it("Should fail if trying to mint with less ETH than required", async function () {
       await token.flipSaleState();
       await expect(
         token.connect(addr1).mintLion(2, { value: parseEther("0.07") })
@@ -74,6 +74,16 @@ describe("SportsIcon Lion Club", function () {
       await token.connect(addr1).mintLion(1, { value: parseEther("0.04") });
 
       expect(await provider.getBalance(token.address)).to.equal(parseEther("0.04"));
+    });
+
+    it("Should fire AssetMinted event", async function () {
+      await token.flipSaleState();
+      await expect(token.connect(addr1).mintLion(1, { value: parseEther("0.04") }))
+        .to.emit(token, 'AssetMinted')
+        .withArgs(addr1.address, 0);
+      await expect(token.connect(addr1).mintLion(1, { value: parseEther("0.04") }))
+        .to.emit(token, 'AssetMinted')
+        .withArgs(addr1.address, 1);
     });
 
   });
