@@ -98,7 +98,7 @@ describe("SportsIcon Lion Club", function () {
 
     it("Should fail if trying to reserve more lions than left in reserve", async function () {
         await expect(
-            token.reserveLions(addr1.address, 301)
+            token.reserveLions(addr1.address, 351)
         ).to.be.revertedWith("There's not enough lions left in reserve");
     });
 
@@ -111,7 +111,7 @@ describe("SportsIcon Lion Club", function () {
     it("Should reserve correct amount", async function () {
         await token.reserveLions(addr1.address, 5);
 
-        expect(await token.reserve()).to.equal(295);
+        expect(await token.reserve()).to.equal(345);
         expect(await token.totalSupply()).to.equal(5);
     });
 
